@@ -2,7 +2,8 @@
 
 ### Changes
 
-- Enable custom plugins
+- Enable custom plugins.
+- Add [Harpoon](https://github.com/ThePrimeagen/harpoon).
 
 ---
 
