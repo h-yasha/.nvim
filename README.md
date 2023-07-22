@@ -4,6 +4,7 @@
 
 - Enable custom plugins.
 - Add [Harpoon](https://github.com/ThePrimeagen/harpoon).
+- Add [Copilot](https://github.com/github/copilot.vim).
 
 ---
 
