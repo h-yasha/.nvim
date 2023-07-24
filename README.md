@@ -6,6 +6,7 @@
 - Add [Harpoon](https://github.com/ThePrimeagen/harpoon).
 - Add [Copilot](https://github.com/github/copilot.vim).
 - Add [Tokyonight](https://github.com/folke/tokyonight.nvim).
+- Add [Todo Comments](https://github.com/folke/todo-comments.nvim).
 
 ---
 
