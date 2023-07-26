@@ -7,6 +7,9 @@
 - Add [Copilot](https://github.com/github/copilot.vim).
 - Add [Tokyonight](https://github.com/folke/tokyonight.nvim).
 - Add [Todo Comments](https://github.com/folke/todo-comments.nvim).
+- Add utils.
+  - `dump` _converts_ table to (printable) string.
+  - `in_table` checks if value in table.
 
 ---
 
