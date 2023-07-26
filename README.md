@@ -10,6 +10,7 @@
 - Add utils.
   - `dump` _converts_ table to (printable) string.
   - `in_table` checks if value in table.
+- Add [Schema Store](https://github.com/b0o/SchemaStore.nvim).
 
 ---
 
