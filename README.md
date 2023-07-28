@@ -12,6 +12,7 @@
   - `in_table` checks if value in table.
 - Add [Schema Store](https://github.com/b0o/SchemaStore.nvim).
 - Add [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua).
+- Add [Obsidian](https://github.com/epwalsh/obsidian.nvim).
 
 ---
 
