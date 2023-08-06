@@ -9,12 +9,16 @@
 - Add [Todo Comments](https://github.com/folke/todo-comments.nvim).
 - Add utils.
   - `dump` _converts_ table to (printable) string.
-  - `in_table` checks if value in table.
+    - Edit: updated to use `vim.inspect` where available.
+  - ~`in_table` checks if value in table.~
+    - Edit: Removed in favor of `vim.list_contains`
 - Add [Schema Store](https://github.com/b0o/SchemaStore.nvim).
 - Add [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua).
 - Add [Obsidian](https://github.com/epwalsh/obsidian.nvim).
 - Add [Auto Pair](https://github.com/windwp/nvim-autopairs).
 - Add [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim).
+- Update utils.
+  - Add `isModuleAvailable` checks if package/module is available.
 
 ---
 

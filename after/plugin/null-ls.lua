@@ -23,7 +23,7 @@ if vim.fn.executable 'rustywind' == 1 then
 end
 
 -- Rust
-if utils.in_table(servers, 'rust_analyzer') then
+if vim.list_contains(servers, 'rust_analyzer') then
   table.insert(sources, nls.builtins.formatting.rustfmt)
 end
 
@@ -40,7 +40,7 @@ end
 
 if vim.fn.executable 'eslint_d' == 1 then
   table.insert(sources, nls.builtins.diagnostics.eslint_d)
-elseif utils.in_table(servers, 'eslint') or vim.fn.executable 'eslint' == 1 then
+elseif vim.list_contains(servers, 'eslint') or vim.fn.executable 'eslint' == 1 then
   table.insert(sources, nls.builtins.diagnostics.eslint)
 end
 
