@@ -14,6 +14,7 @@
 - Add [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua).
 - Add [Obsidian](https://github.com/epwalsh/obsidian.nvim).
 - Add [Auto Pair](https://github.com/windwp/nvim-autopairs).
+- Add [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim).
 
 ---
 
@@ -163,4 +164,3 @@ This requires:
 ```lua
 {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 ```
-
