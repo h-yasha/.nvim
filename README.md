@@ -19,6 +19,7 @@
 - Add [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim).
 - Update utils.
   - Add `isModuleAvailable` checks if package/module is available.
+- Add Defaults and various Keymaps.
 
 ---
 
