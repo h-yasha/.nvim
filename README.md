@@ -23,6 +23,7 @@
 - Add [Context Scope](https://github.com/nvim-treesitter/nvim-treesitter-context).
 - Add [Ultra Fold](https://github.com/kevinhwang91/nvim-ufo).
 - Add [Surround](https://github.com/kylechui/nvim-surround).
+- Add [Auto Tag](https://github.com/windwp/nvim-ts-autotag).
 
 ---
 
