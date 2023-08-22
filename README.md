@@ -20,6 +20,7 @@
 - Update utils.
   - Add `isModuleAvailable` checks if package/module is available.
 - Add Defaults and various Keymaps.
+- Add [Context Scope](https://github.com/nvim-treesitter/nvim-treesitter-context).
 
 ---
 
