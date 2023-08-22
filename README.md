@@ -22,6 +22,7 @@
 - Add Defaults and various Keymaps.
 - Add [Context Scope](https://github.com/nvim-treesitter/nvim-treesitter-context).
 - Add [Ultra Fold](https://github.com/kevinhwang91/nvim-ufo).
+- Add [Surround](https://github.com/kylechui/nvim-surround).
 
 ---
 
