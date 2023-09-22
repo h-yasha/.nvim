@@ -14,4 +14,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Package Manager ]]
-require("lazy").setup()
+require("lazy").setup("plugins")
+
+-- [[ Color Scheme ]]
+vim.cmd("colorscheme tokyonight")
