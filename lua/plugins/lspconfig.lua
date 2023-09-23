@@ -5,6 +5,11 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 	},
 	config = function()
+		local have_neodev, neodev = pcall(require, "neodev")
+		if have_neodev then
+			neodev.setup()
+		end
+
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		local lspconfig = require("lspconfig")
 		local mason_lspconfig = require("mason-lspconfig")
