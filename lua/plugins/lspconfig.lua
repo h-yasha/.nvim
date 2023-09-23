@@ -11,6 +11,12 @@ return {
 		end
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+		local have_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+		if have_cmp_nvim_lsp then
+			capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+		end
+
 		local lspconfig = require("lspconfig")
 		local mason_lspconfig = require("mason-lspconfig")
 
