@@ -5,10 +5,15 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 	},
 	config = function()
+		local lspconfig = require("lspconfig")
+		local mason_lspconfig = require("mason-lspconfig")
+
 		local have_neodev, neodev = pcall(require, "neodev")
 		if have_neodev then
 			neodev.setup()
 		end
+
+		local have_telescope_builtin, telescope_builtin = pcall(require, "telescope.builtin")
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -16,9 +21,6 @@ return {
 		if have_cmp_nvim_lsp then
 			capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 		end
-
-		local lspconfig = require("lspconfig")
-		local mason_lspconfig = require("mason-lspconfig")
 
 		require("mason").setup()
 
@@ -44,6 +46,18 @@ return {
 						nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 						nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 						nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+						nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+
+						if have_telescope_builtin then
+							nmap('gr', telescope_builtin.lsp_references,
+								'[G]oto [R]eferences')
+							nmap('<leader>ds', telescope_builtin.lsp_document_symbols,
+								'[D]ocument [S]ymbols')
+							nmap('<leader>ws',
+								telescope_builtin.lsp_dynamic_workspace_symbols,
+								'[W]orkspace [S]ymbols')
+						end
+
 
 						vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
 							vim.lsp.buf.format()
