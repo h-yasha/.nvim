@@ -22,10 +22,6 @@ return {
 		end
 
 		-- [[ Using CLI ]]
-		if vim.fn.executable("sed") == 1 then
-			set({ "*" }, require("formatter.defaults.sed"))
-		end
-
 		if vim.fn.executable("stylua") == 1 then
 			set({ "lua", "luau" }, require("formatter.filetypes.lua").stylua)
 		end
