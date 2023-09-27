@@ -57,11 +57,6 @@ return {
 								telescope_builtin.lsp_dynamic_workspace_symbols,
 								'[W]orkspace [S]ymbols')
 						end
-
-
-						vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
-							vim.lsp.buf.format()
-						end, { desc = "Format current buffer with LSP" })
 					end,
 				})
 			end,
