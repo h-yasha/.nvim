@@ -46,7 +46,7 @@ return {
 					behavior = cmp.ConfirmBehavior.Replace,
 					select = true,
 				}),
-				["<esc>"] = cmp.config.mapping.abort()
+				["<esc>"] = cmp.config.mapping.abort(),
 			}),
 			sources = {
 				{ name = "nvim_lsp" },

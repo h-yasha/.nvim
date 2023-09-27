@@ -27,7 +27,6 @@ return {
 		mason_lspconfig.setup()
 		mason_lspconfig.setup_handlers({
 			function(server_name)
-				print(server_name)
 				lspconfig[server_name].setup({
 					capabilities = capabilities,
 					on_attach = function(_, bufnr)
@@ -46,16 +45,12 @@ return {
 						nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 						nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 						nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-						nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+						nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
 
 						if have_telescope_builtin then
-							nmap('gr', telescope_builtin.lsp_references,
-								'[G]oto [R]eferences')
-							nmap('<leader>ds', telescope_builtin.lsp_document_symbols,
-								'[D]ocument [S]ymbols')
-							nmap('<leader>ws',
-								telescope_builtin.lsp_dynamic_workspace_symbols,
-								'[W]orkspace [S]ymbols')
+							nmap("gr", telescope_builtin.lsp_references, "[G]oto [R]eferences")
+							nmap("<leader>ds", telescope_builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
+							nmap("<leader>ws", telescope_builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 						end
 					end,
 				})

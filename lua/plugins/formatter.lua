@@ -42,7 +42,7 @@ return {
 				"svelte",
 				"vue",
 				"yaml",
-				}, require("formatter.defaults.prettierd"))
+			}, require("formatter.defaults.prettierd"))
 		elseif vim.fn.executable("prettier") == 1 then
 			set({
 				"css",
@@ -55,7 +55,7 @@ return {
 				"svelte",
 				"vue",
 				"yaml",
-				}, require("formatter.defaults.prettier"))
+			}, require("formatter.defaults.prettier"))
 		end
 
 		if vim.fn.executable("taplo") == 1 then
@@ -81,11 +81,11 @@ return {
 			print("Setting autoformatting to: " .. tostring(format_is_enabled))
 		end, {})
 
-		vim.keymap.set("n", "<leader>f", "<cmd>Format<cr>", { desc = 'Format current buffer with LSP' })
+		vim.keymap.set("n", "<leader>f", "<cmd>Format<cr>", { desc = "Format current buffer with LSP" })
 
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			callback = function()
-			if not format_is_enabled then
+				if not format_is_enabled then
 					return
 				end
 				vim.cmd("Format")
