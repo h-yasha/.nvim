@@ -39,6 +39,12 @@ return {
 			capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 		end
 
+		-- TODO: maybe include only if ufo/fold support in available?
+		capabilities.textDocument.foldingRange = {
+			dynamicRegistration = false,
+			lineFoldingOnly = true,
+		}
+
 		local have_telescope_builtin, telescope_builtin = pcall(require, "telescope.builtin")
 
 		mason_lspconfig.setup()
