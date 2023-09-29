@@ -7,6 +7,8 @@ return {
 
 		"L3MON4D3/LuaSnip",
 		"saadparwaiz1/cmp_luasnip",
+
+		"hrsh7th/cmp-nvim-lsp-signature-help",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -52,6 +54,7 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "buffer" },
 				{ name = "path" },
+				{ name = "nvim_lsp_signature_help" },
 			},
 			view = { docs = { auto_open = true }, entries = { name = "custom" } },
 		})
