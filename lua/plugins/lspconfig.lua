@@ -3,17 +3,34 @@ return {
 	dependencies = {
 		{ "williamboman/mason.nvim", config = true },
 		"williamboman/mason-lspconfig.nvim",
+
+		"b0o/SchemaStore.nvim",
 	},
 	config = function()
+		require("mason").setup()
 		local lspconfig = require("lspconfig")
 		local mason_lspconfig = require("mason-lspconfig")
+		local schema_store = require("schemastore")
+
+		local servers = {
+			jsonls = {
+				json = {
+					schemas = schema_store.json.schemas(),
+					validate = { enable = true },
+				},
+			},
+			yamlls = {
+				yaml = {
+					schemaStore = { enable = false },
+					schemas = require("schemastore").yaml.schemas(),
+				},
+			},
+		}
 
 		local have_neodev, neodev = pcall(require, "neodev")
 		if have_neodev then
 			neodev.setup()
 		end
-
-		local have_telescope_builtin, telescope_builtin = pcall(require, "telescope.builtin")
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -22,13 +39,14 @@ return {
 			capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 		end
 
-		require("mason").setup()
+		local have_telescope_builtin, telescope_builtin = pcall(require, "telescope.builtin")
 
 		mason_lspconfig.setup()
 		mason_lspconfig.setup_handlers({
 			function(server_name)
 				lspconfig[server_name].setup({
 					capabilities = capabilities,
+					settings = servers[server_name] or {},
 					on_attach = function(_, bufnr)
 						local nmap = function(keys, func, desc)
 							if desc then
