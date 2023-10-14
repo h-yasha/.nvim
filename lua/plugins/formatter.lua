@@ -1,93 +1,96 @@
+vim.print(vim.fs.joinpath(vim.fn.stdpath("config"), "config/formatters/sql-formatter.json"))
 return {
-	"mhartington/formatter.nvim",
-	config = function()
-		local filetype = {}
+	"stevearc/conform.nvim",
+	lazy = true,
+	event = { "BufWritePre" },
+	cmd = { "ConformInfo" },
+	keys = {
+		{
+			"<leader>f",
+			function()
+				require("conform").format()
+			end,
+			mode = { "n", "v" },
+			desc = "Format",
+		},
+		{
+			"<leader>cf",
+			function()
+				require("conform").format({ formatters = { "injected" } })
+			end,
+			mode = { "n", "v" },
+			desc = "Format Injected Langs",
+		},
+	},
+	opts = {
+		formatters_by_ft = {
+			lua = { "stylua" },
+			luau = { "stylua" },
 
-		local function set(filetypes, value, lone)
-			lone = lone or false
+			sh = { "shfmt" },
 
-			if type(filetypes) == "table" then
-				for _, ft in ipairs(filetypes) do
-					if not filetype[ft] or lone then
-						filetype[ft] = {}
-					end
-					table.insert(filetype[ft], value)
+			sql = { "sql_formatter" },
+
+			css = { { "dprint", "prettierd", "prettier" } },
+			html = { { "dprint", "prettierd", "prettier" }, "rustywind" },
+
+			json = { { "dprint", "biome", "prettierd", "prettier" } },
+			jsonc = { { "dprint", "biome", "prettierd", "prettier" } },
+			javascript = { { "dprint", "biome", "prettierd", "prettier" }, "rustywind" },
+			javascriptreact = { { "dprint", "biome", "prettierd", "prettier" }, "rustywind" },
+			typescript = { { "dprint", "biome", "prettierd", "prettier" }, "rustywind" },
+			typescriptreact = { { "dprint", "biome", "prettierd", "prettier" }, "rustywind" },
+
+			svelte = { { "dprint", "prettierd", "prettier" }, "rustywind" },
+			vue = { { "dprint", "prettierd", "prettier" }, "rustywind" },
+
+			yaml = { { "dprint", "prettierd", "prettier" } },
+
+			toml = { "taplo" },
+
+			rust = { "rustfmt" },
+		},
+		format_on_save = {
+			timeout_ms = 500,
+			lsp_fallback = false,
+		},
+		---@type table<string,table>
+		formatters = {
+			injected = { options = { ignore_errors = false } },
+			sql_formatter = {
+				args = {
+					"--config",
+					vim.fs.joinpath(vim.fn.stdpath("config"), "config/formatters/sql-formatter.json"),
+				},
+			},
+			dprint = {
+				condition = function(ctx)
+					return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[1]
+				end,
+			},
+			biome = {
+				condition = function(ctx)
+					return vim.fs.find({ "biome.json" }, { path = ctx.filename, upward = true })[1]
+				end,
+			},
+			rustywind = {
+				condition = function(ctx)
+					return vim.fs.find({ vim.fn.glob("tailwind.config.*") }, { path = ctx.filename, upward = true })[1]
+				end,
+			},
+		},
+	},
+	config = function(_, opts)
+		opts.formatters = opts.formatters or {}
+		for name, formatter in pairs(opts.formatters) do
+			if type(formatter) == "table" then
+				local ok, defaults = pcall(require, "conform.formatters." .. name)
+				if ok and type(defaults) == "table" then
+					opts.formatters[name] = vim.tbl_deep_extend("force", {}, defaults, formatter)
 				end
-			elseif type(filetypes) == "string" then
-				if not filetype[filetypes] or lone then
-					filetype[filetypes] = {}
-				end
-				table.insert(filetype[filetypes], value)
 			end
 		end
 
-		-- [[ Using CLI ]]
-		if vim.fn.executable("stylua") == 1 then
-			set({ "lua", "luau" }, require("formatter.filetypes.lua").stylua)
-		end
-
-		if vim.fn.executable("prettierd") == 1 then
-			set({
-				"css",
-				"html",
-				"json",
-				"jsonc",
-				"javascript",
-				"javascriptreact",
-				"typescript",
-				"typescriptreact",
-				"svelte",
-				"vue",
-				"yaml",
-			}, require("formatter.defaults.prettierd"))
-		elseif vim.fn.executable("prettier") == 1 then
-			set({
-				"css",
-				"html",
-				"json",
-				"jsonc",
-				"javascript",
-				"javascriptreact",
-				"typescript",
-				"typescriptreact",
-				"svelte",
-				"vue",
-				"yaml",
-			}, require("formatter.defaults.prettier"))
-		end
-
-		if vim.fn.executable("taplo") == 1 then
-			set({ "toml" }, require("formatter.filetypes.toml").taplo)
-		end
-
-		-- [[ Using LSP ]]
-		set({
-			"rust",
-		}, vim.lsp.buf.format)
-
-		require("formatter").setup({
-			logging = true,
-			log_level = vim.log.levels.WARN,
-			filetype = filetype,
-		})
-
-		-- [[ Auto Format ]]
-		local format_is_enabled = true
-
-		vim.api.nvim_create_user_command("ToggleFormatOnSave", function()
-			format_is_enabled = not format_is_enabled
-			print("Setting autoformatting to: " .. tostring(format_is_enabled))
-		end, {})
-
-		vim.keymap.set("n", "<leader>f", "<cmd>Format<cr>", { desc = "Format current buffer with LSP" })
-
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			callback = function()
-				if not format_is_enabled then
-					return
-				end
-				vim.cmd("Format")
-			end,
-		})
+		require("conform").setup(opts)
 	end,
 }
