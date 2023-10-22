@@ -1,4 +1,3 @@
-vim.print(vim.fs.joinpath(vim.fn.stdpath("config"), "config/formatters/sql-formatter.json"))
 return {
 	"stevearc/conform.nvim",
 	lazy = true,
@@ -56,7 +55,9 @@ return {
 		},
 		---@type table<string,table>
 		formatters = {
-			injected = { options = { ignore_errors = false } },
+			injected = {
+				options = { ignore_errors = false },
+			},
 			sql_formatter = {
 				args = {
 					"--config",
